@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+group = 'org.neptunepowered'
+archivesBaseName = 'OpenCraft'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://repo.spacehq.org/content/repositories/release/'
+    }
+    maven {
+        url 'http://repo.spacehq.org/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+    compile 'org.spacehq:mcprotocollib:1.8-SNAPSHOT'
+    compile 'com.beust:jcommander:1.30'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'org.slf4j:slf4j-simple:1.7.12'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
