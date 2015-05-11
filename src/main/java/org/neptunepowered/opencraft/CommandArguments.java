@@ -23,15 +23,16 @@
  */
 package org.neptunepowered.opencraft;
 
+import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import org.neptunepowered.opencraft.session.Type;
+import org.spacehq.mc.auth.serialize.UUIDSerializer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.util.Map;
+import java.util.UUID;
 
 public class CommandArguments {
-
-    @Parameter
-    private List<String> parameters = new ArrayList<String>();
 
     @Parameter(names = { "--username" })
     private String username = "Player";
@@ -54,38 +55,85 @@ public class CommandArguments {
     @Parameter(names = { "--accessToken" })
     private String accessToken;
 
-    @Parameter(names = { "--userType" })
-    private String userType;
+    @Parameter(names = { "--userProperties" })
+    private String userProperties;
 
-    public List<String> getParameters() {
-        return parameters;
+    @Parameter(names = { "--userType" })
+    private String userType = "legacy";
+
+    public CommandArguments(String[] args) {
+        new JCommander(this, args);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getVersion() {
         return version;
     }
 
-    public String getAssetsDir() {
-        return assetsDir;
+    /**
+     *
+     * @return
+     */
+    public File getGameDir() {
+        return new File(gameDir);
     }
 
+    /**
+     *
+     * @return
+     */
+    public File getAssetsDir() {
+        return new File(assetsDir);
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getAssetIndex() {
         return assetIndex;
     }
 
-    public String getUuid() {
-        return uuid;
+    /**
+     *
+     * @return
+     */
+    public UUID getUuid() {
+        return UUIDSerializer.fromString(uuid);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAccessToken() {
         return accessToken;
     }
 
-    public String getUserType() {
-        return userType;
+    /**
+     *
+     * @return
+     */
+    public Map getUserProperties() {
+        return Main.GSON.fromJson(userProperties, Map.class);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Type getUserType() {
+        return Type.fromString(userType);
     }
 }

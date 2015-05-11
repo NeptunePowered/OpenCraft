@@ -23,17 +23,20 @@
  */
 package org.neptunepowered.opencraft;
 
-import com.beust.jcommander.JCommander;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Main {
 
-    public static final Logger logger = LoggerFactory.getLogger("OpenCraft");
+    public static final Logger LOGGER = LoggerFactory.getLogger("OpenCraft");
+    public static final Gson GSON = new Gson();
 
     public static void main(String[] args) {
-        CommandArguments arguments = new CommandArguments();
-        new JCommander(arguments, args);
-        logger.info(arguments.getUuid());
+        CommandArguments arguments = new CommandArguments(args);
+        LOGGER.info(arguments.getUuid().toString());
+        LOGGER.info(arguments.getGameDir().toString());
+        LOGGER.info(arguments.getAssetsDir().toString());
+        LOGGER.info(arguments.getUserType().toString());
     }
 }
